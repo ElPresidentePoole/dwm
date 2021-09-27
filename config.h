@@ -21,11 +21,11 @@ static const char *colors[][3]      = {
 };
 
 /* binary names */
-static const char terminal[] = "st";
-static const char browser[] = "brave";
+static const char terminal[] = "urxvt";
+static const char browser[] = "brave-browser-stable";
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "www", "disc"};
+static const char *tags[] = { "1", "2", "3", "www", "disc", "mail" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -35,6 +35,7 @@ static const Rule rules[] = {
 	/* class            instance    title       tags mask     isfloating   monitor */
 	{ "Brave-browser",  NULL,       NULL,       1 << 3,       0,           -1 },
 	{ "discord",        NULL,       NULL,       1 << 4,       0,           -1 },
+	{ NULL,        	    NULL,       "neomutt",  1 << 5,       0,           -1 },
 	{ "Gimp",           NULL,       NULL,       0,            1,           -1 },
 	{ "Sxiv",           NULL,       NULL,       0,            1,           -1 },
 };
@@ -66,20 +67,22 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 
 /* commands */
 static const char *dmenucmd[] = { "/home/gordon/.local/scripts/vmenu.sh", col_black, col_lblue, col_dblue, col_white, dmenu_fn, NULL };
+// static const char *dmenucmd[] = { "j4-dmenu-desktop --term=\"urxvt\" --dmenu=\"dmenu -i -l 20 -sf \'#cee1ea\' -sb \'#576e6d\' -nf \'#6d6662\' -nb \'#24222a\' -fn \'Terminus:size=11\'\"" };
 static const char *killdwmcmd[] = { "killall", "xinit", NULL };
 static const char *termcmd[]  = { terminal, NULL };
 static const char *browsercmd[]  = { browser, NULL };
 static const char *lockcmd[]  = { "i3lock", "-c", col_i3lock };
-static const char *upvol[] = { "/home/gordon/.local/scripts/volume", "up", NULL };
-static const char *downvol[] = { "/home/gordon/.local/scripts/volume", "down", NULL };
-static const char *mute[] = { "pactl", "set-sink-mute", "0", "toggle", NULL };
-static const char *brightupcmd[] = { "/home/gordon/.local/scripts/brightness", "up" };
-static const char *brightdowncmd[] = { "/home/gordon/.local/scripts/brightness", "down" };
+static const char *upvol[] = { "pulsemixer", "--change-volume", "+5", NULL };
+static const char *downvol[] = { "pulsemixer", "--change-volume", "-5", NULL };
+static const char *mute[] = { "pulsemixer", "--toggle-mute", NULL };
+static const char *brightupcmd[] = { "light", "-A", "5" };
+static const char *brightdowncmd[] = { "light", "-U", "5" };
 static const char *scrotcmd[] = { "/home/gordon/.local/scripts/screenshot_grab", NULL };
 static const char *vimcmd[] = { terminal, "-e", "nvim", NULL };
 static const char *filemancmd[] = { "thunar", NULL };
 static const char *newsboatcmd[] = { terminal, "-e", "newsboat", NULL };
 static const char *irccmd[] = { terminal, "-e", "weechat", NULL };
+static const char *emailcmd[] = { terminal, "-e", "neomutt", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -92,7 +95,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_n,      spawn,          {.v = filemancmd } },
 	// { MODKEY,                       XK_p,      spawn,          {.v = pkgmgrcmd } },
 	// { MODKEY,                       XK_s,      spawn,          {.v = sshcmd } },
-	// { MODKEY,                       XK_e,      spawn,          {.v = emailcmd } },
+	{ MODKEY,                       XK_e,      spawn,          {.v = emailcmd } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = newsboatcmd } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = vimcmd } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browsercmd } },
