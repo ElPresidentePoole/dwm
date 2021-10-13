@@ -6,8 +6,8 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]     	    = { "Terminus:size=12", "Iosevka Nerd Font:size=12" };
-static const char dmenu_fn[]        = "Terminus:size=12";
+static const char *fonts[]     	    = { "CodeNewRoman Nerd Font:size=12", "Iosevka Nerd Font:size=12" };
+static const char dmenu_fn[]        = "CodeNewRoman Nerd Font:size=12";
 static const char col_white[]       = "#cee1ea";
 static const char col_cyan[]        = "#1ebbbd";
 static const char col_dblue[]       = "#576e6d";
@@ -21,11 +21,11 @@ static const char *colors[][3]      = {
 };
 
 /* binary names */
-static const char terminal[] = "urxvt";
+static const char terminal[] = "alacritty";
 static const char browser[] = "brave-browser-stable";
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "www", "disc", "mail" };
+static const char *tags[] = { "www", "2", "3", "irc", "disc", "mail" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -33,9 +33,10 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class            instance    title       tags mask     isfloating   monitor */
-	{ "Brave-browser",  NULL,       NULL,       1 << 3,       0,           -1 },
+	{ "Brave-browser",  NULL,       NULL,       1 << 0,       0,           -1 },
 	{ "discord",        NULL,       NULL,       1 << 4,       0,           -1 },
 	{ NULL,        	    NULL,       "neomutt",  1 << 5,       0,           -1 },
+	{ NULL,        	    NULL,       "WeeChat",  1 << 3,       0,           -1 },
 	{ "Gimp",           NULL,       NULL,       0,            1,           -1 },
 	{ "Sxiv",           NULL,       NULL,       0,            1,           -1 },
 };
@@ -81,8 +82,8 @@ static const char *scrotcmd[] = { "/home/gordon/.local/scripts/screenshot_grab",
 static const char *vimcmd[] = { terminal, "-e", "nvim", NULL };
 static const char *filemancmd[] = { "thunar", NULL };
 static const char *newsboatcmd[] = { terminal, "-e", "newsboat", NULL };
-static const char *irccmd[] = { terminal, "-e", "weechat", NULL };
-static const char *emailcmd[] = { terminal, "-e", "neomutt", NULL };
+static const char *irccmd[] = { terminal, "-t", "WeeChat", "-e", "weechat", NULL };
+static const char *emailcmd[] = { terminal, "-t", "neomutt", "-e", "neomutt", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -95,6 +96,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_n,      spawn,          {.v = filemancmd } },
 	// { MODKEY,                       XK_p,      spawn,          {.v = pkgmgrcmd } },
 	// { MODKEY,                       XK_s,      spawn,          {.v = sshcmd } },
+	// { MODKEY,             		XK_c,      spawn,          {.v = irccmd } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = emailcmd } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = newsboatcmd } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = vimcmd } },
