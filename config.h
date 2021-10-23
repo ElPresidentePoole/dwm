@@ -8,6 +8,27 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]     	    = { "CodeNewRoman Nerd Font:size=12", "Iosevka Nerd Font:size=12" };
 static const char dmenu_fn[]        = "CodeNewRoman Nerd Font:size=12";
+
+static const char col_black[]         = "#282c34";
+static const char col_white[]         = "#abb2bf";
+static const char col_lred[]          = "#e06c75";
+static const char col_dred[]          = "#be5046";
+static const char col_green[]         = "#98c379";
+static const char col_lyellow[]       = "#e5c07b";
+static const char col_dyellow[]       = "#d19a66";
+static const char col_blue[]          = "#61afef";
+static const char col_magenta[]       = "#c678dd";
+static const char col_cyan[]          = "#56b6c2";
+static const char col_ggrey[]         = "#4b5263";
+static const char col_cgrey[]         = "#5c6370";
+static const char col_i3lock[]        = "274966";
+static const char *colors[][3]      = {
+	/*               fg         bg         border   */
+	[SchemeNorm] = { col_white, col_black, col_ggrey },
+	[SchemeSel]  = { col_magenta, col_black, col_cyan },
+};
+
+/*
 static const char col_white[]       = "#cee1ea";
 static const char col_cyan[]        = "#1ebbbd";
 static const char col_dblue[]       = "#576e6d";
@@ -15,14 +36,14 @@ static const char col_lblue[]       = "#697d84";
 static const char col_black[]       = "#24222a";
 static const char col_i3lock[]      = "274966";
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
 	[SchemeNorm] = { col_lblue, col_black, col_black },
 	[SchemeSel]  = { col_white, col_dblue, col_cyan },
-};
+};*/
 
 /* binary names */
-static const char terminal[] = "alacritty";
-static const char browser[] = "brave-browser-stable";
+static const char terminal[] = "kitty";
+static const char browser[]  = "firefox";
+static const char fm[] 	     = "thunar";
 
 /* tagging */
 static const char *tags[] = { "www", "2", "3", "irc", "disc", "mail" };
@@ -67,7 +88,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
 /* commands */
-static const char *dmenucmd[] = { "/home/gordon/.local/scripts/vmenu.sh", col_black, col_lblue, col_dblue, col_white, dmenu_fn, NULL };
+static const char *dmenucmd[] = { "/home/gordon/.local/scripts/vmenu.sh", col_dyellow, col_blue, col_magenta, col_cyan, dmenu_fn, NULL };
 // static const char *dmenucmd[] = { "j4-dmenu-desktop --term=\"urxvt\" --dmenu=\"dmenu -i -l 20 -sf \'#cee1ea\' -sb \'#576e6d\' -nf \'#6d6662\' -nb \'#24222a\' -fn \'Terminus:size=11\'\"" };
 static const char *killdwmcmd[] = { "killall", "xinit", NULL };
 static const char *termcmd[]  = { terminal, NULL };
@@ -80,7 +101,7 @@ static const char *brightupcmd[] = { "light", "-A", "5" };
 static const char *brightdowncmd[] = { "light", "-U", "5" };
 static const char *scrotcmd[] = { "/home/gordon/.local/scripts/screenshot_grab", NULL };
 static const char *vimcmd[] = { terminal, "-e", "nvim", NULL };
-static const char *filemancmd[] = { "thunar", NULL };
+static const char *filemancmd[] = { fm, NULL };
 static const char *newsboatcmd[] = { terminal, "-e", "newsboat", NULL };
 static const char *irccmd[] = { terminal, "-t", "WeeChat", "-e", "weechat", NULL };
 static const char *emailcmd[] = { terminal, "-t", "neomutt", "-e", "neomutt", NULL };
