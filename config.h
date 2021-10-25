@@ -21,11 +21,14 @@ static const char col_magenta[]       = "#c678dd";
 static const char col_cyan[]          = "#56b6c2";
 static const char col_ggrey[]         = "#4b5263";
 static const char col_cgrey[]         = "#5c6370";
-static const char col_i3lock[]        = "274966";
+static const char col_i3lock[]        = "be5046";
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_white, col_black, col_ggrey },
-	[SchemeSel]  = { col_magenta, col_black, col_cyan },
+	/*                    fg            bg       border   */
+	[SchemeNorm]      = { col_white,   col_black, col_ggrey },
+	[SchemeSel]       = { col_magenta, col_black, col_cyan },
+	[SchemeStatus]    = { col_blue,    col_black, NULL }, // border is unused
+	[SchemeTitleNorm] = { col_white,   col_black, NULL }, // border is unused
+	[SchemeTitleSel]  = { col_lred,    col_black, NULL }, // border is unused
 };
 
 /*
@@ -54,7 +57,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class            instance    title       tags mask     isfloating   monitor */
-	{ "Brave-browser",  NULL,       NULL,       1 << 0,       0,           -1 },
+	{ "Firefox",  NULL,       NULL,       1 << 0,       0,           -1 },
 	{ "discord",        NULL,       NULL,       1 << 4,       0,           -1 },
 	{ NULL,        	    NULL,       "neomutt",  1 << 5,       0,           -1 },
 	{ NULL,        	    NULL,       "WeeChat",  1 << 3,       0,           -1 },
@@ -88,7 +91,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
 /* commands */
-static const char *dmenucmd[] = { "/home/gordon/.local/scripts/vmenu.sh", col_dyellow, col_blue, col_magenta, col_cyan, dmenu_fn, NULL };
+static const char *dmenucmd[] = { "/home/gordon/.local/scripts/vmenu.sh", col_black, col_white, col_black, col_cyan, dmenu_fn, NULL };
 // static const char *dmenucmd[] = { "j4-dmenu-desktop --term=\"urxvt\" --dmenu=\"dmenu -i -l 20 -sf \'#cee1ea\' -sb \'#576e6d\' -nf \'#6d6662\' -nb \'#24222a\' -fn \'Terminus:size=11\'\"" };
 static const char *killdwmcmd[] = { "killall", "xinit", NULL };
 static const char *termcmd[]  = { terminal, NULL };
