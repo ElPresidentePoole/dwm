@@ -6,8 +6,8 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]     	    = { "CodeNewRoman Nerd Font:size=12", "Iosevka Nerd Font:size=12" };
-static const char dmenu_fn[]        = "CodeNewRoman Nerd Font:size=12";
+static const char *fonts[]     	    = { "UbuntuMono Nerd Font:size=12"};
+static const char dmenu_fn[]        = "UbuntuMono Nerd Font:size=12";
 
 static const char col_black[]         = "#282c34";
 static const char col_white[]         = "#abb2bf";
@@ -21,14 +21,14 @@ static const char col_magenta[]       = "#c678dd";
 static const char col_cyan[]          = "#56b6c2";
 static const char col_ggrey[]         = "#4b5263";
 static const char col_cgrey[]         = "#5c6370";
-static const char col_i3lock[]        = "be5046";
+static const char col_i3lock[]        = "d19a66";
 static const char *colors[][3]      = {
 	/*                    fg            bg       border   */
 	[SchemeNorm]      = { col_white,   col_black, col_ggrey },
 	[SchemeSel]       = { col_magenta, col_black, col_cyan },
-	[SchemeStatus]    = { col_blue,    col_black, NULL }, // border is unused
-	[SchemeTitleNorm] = { col_white,   col_black, NULL }, // border is unused
-	[SchemeTitleSel]  = { col_lred,    col_black, NULL }, // border is unused
+	[SchemeStatus]    = { col_green, col_black, NULL }, /* border is unused */
+	[SchemeTitleNorm] = { col_white, col_black, NULL }, /* border is unused */
+	[SchemeTitleSel]  = { col_lyellow, col_black, NULL }, /* border is unused */
 };
 
 /*
@@ -91,7 +91,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
 /* commands */
-static const char *dmenucmd[] = { "/home/gordon/.local/scripts/vmenu.sh", col_black, col_white, col_black, col_cyan, dmenu_fn, NULL };
+static const char *dmenucmd[] = { "/home/gordon/.local/scripts/vmenu.sh", col_black, col_white, col_black, col_blue, dmenu_fn, NULL };
 // static const char *dmenucmd[] = { "j4-dmenu-desktop --term=\"urxvt\" --dmenu=\"dmenu -i -l 20 -sf \'#cee1ea\' -sb \'#576e6d\' -nf \'#6d6662\' -nb \'#24222a\' -fn \'Terminus:size=11\'\"" };
 static const char *killdwmcmd[] = { "killall", "xinit", NULL };
 static const char *termcmd[]  = { terminal, NULL };
