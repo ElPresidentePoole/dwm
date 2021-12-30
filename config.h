@@ -91,7 +91,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
 /* commands */
-static const char *dmenucmd[] = { "/home/gordon/.local/scripts/vmenu.sh", col_black, col_white, col_black, col_blue, dmenu_fn, NULL };
+static const char *dmenucmd[] = { "j4-dmenu-desktop", "--term=kitty", "--dmenu=dmenu -i -l 20" };
+// static const char *dmenucmd[] = { "/home/gordon/.local/scripts/vmenu.sh", col_black, col_white, col_black, col_blue, dmenu_fn, NULL };
 // static const char *dmenucmd[] = { "j4-dmenu-desktop --term=\"urxvt\" --dmenu=\"dmenu -i -l 20 -sf \'#cee1ea\' -sb \'#576e6d\' -nf \'#6d6662\' -nb \'#24222a\' -fn \'Terminus:size=11\'\"" };
 static const char *killdwmcmd[] = { "killall", "xinit", NULL };
 static const char *termcmd[]  = { terminal, NULL };
@@ -103,11 +104,13 @@ static const char *mute[] = { "pulsemixer", "--toggle-mute", NULL };
 static const char *brightupcmd[] = { "light", "-A", "5" };
 static const char *brightdowncmd[] = { "light", "-U", "5" };
 static const char *scrotcmd[] = { "/home/gordon/.local/scripts/screenshot_grab", NULL };
-static const char *vimcmd[] = { terminal, "-e", "nvim", NULL };
+// static const char *vimcmd[] = { terminal, "-e", "nvim" };
+static const char *emacscmd[] = { "emacsclient", "-nc" };
 static const char *filemancmd[] = { fm, NULL };
 static const char *newsboatcmd[] = { terminal, "-e", "newsboat", NULL };
 static const char *irccmd[] = { terminal, "-t", "WeeChat", "-e", "weechat", NULL };
-static const char *emailcmd[] = { terminal, "-t", "neomutt", "-e", "neomutt", NULL };
+// static const char *emailcmd[] = { terminal, "-t", "neomutt", "-e", "neomutt", NULL };
+static const char *emailcmd[] = { "emacsclient", "-nc", "--eval", "\'(mu4e)\'" };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -123,7 +126,7 @@ static Key keys[] = {
 	// { MODKEY,             		XK_c,      spawn,          {.v = irccmd } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = emailcmd } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = newsboatcmd } },
-	{ MODKEY,                       XK_v,      spawn,          {.v = vimcmd } },
+	{ MODKEY,                       XK_v,      spawn,          {.v = emacscmd } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
