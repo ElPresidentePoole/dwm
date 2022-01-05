@@ -9,6 +9,7 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]     	    = { "UbuntuMono Nerd Font:size=12"};
 static const char dmenu_fn[]        = "UbuntuMono Nerd Font:size=12";
 
+/*
 static const char col_black[]         = "#282c34";
 static const char col_white[]         = "#abb2bf";
 static const char col_lred[]          = "#e06c75";
@@ -22,13 +23,29 @@ static const char col_cyan[]          = "#56b6c2";
 static const char col_ggrey[]         = "#4b5263";
 static const char col_cgrey[]         = "#5c6370";
 static const char col_i3lock[]        = "d19a66";
+
+
 static const char *colors[][3]      = {
-	/*                    fg            bg       border   */
 	[SchemeNorm]      = { col_white,   col_black, col_ggrey },
 	[SchemeSel]       = { col_magenta, col_black, col_cyan },
-	[SchemeStatus]    = { col_green, col_black, NULL }, /* border is unused */
+	[SchemeStatus]    = { col_green, col_black, NULL },
+	[SchemeTitleNorm] = { col_white, col_black, NULL },
+	[SchemeTitleSel]  = { col_lyellow, col_black, NULL },
+};
+
+*/
+static const char col_i3lock[]           = "282828";
+static const char col_black[]           = "#282828";
+static const char col_white[]           = "#ebdbb2";
+static const char col_green[]        = "#98971a";
+static const char col_red[]        = "#fb4934";
+static const char *colors[][3]      = {
+	/*                    fg            bg       border   */
+	[SchemeNorm]      = { col_white,   col_black, col_black },
+	[SchemeSel]       = { col_green, col_black, col_green },
+	[SchemeStatus]    = { col_white, col_black, NULL }, /* border is unused */
 	[SchemeTitleNorm] = { col_white, col_black, NULL }, /* border is unused */
-	[SchemeTitleSel]  = { col_lyellow, col_black, NULL }, /* border is unused */
+	[SchemeTitleSel]  = { col_red, col_black, NULL }, /* border is unused */
 };
 
 /*
@@ -44,7 +61,7 @@ static const char *colors[][3]      = {
 };*/
 
 /* binary names */
-static const char terminal[] = "kitty";
+static const char terminal[] = "st";
 static const char browser[]  = "firefox";
 static const char fm[] 	     = "thunar";
 
@@ -60,6 +77,7 @@ static const Rule rules[] = {
 	{ "Firefox",  NULL,       NULL,       1 << 0,       0,           -1 },
 	{ "discord",        NULL,       NULL,       1 << 4,       0,           -1 },
 	{ NULL,        	    NULL,       "neomutt",  1 << 5,       0,           -1 },
+	{ "Thunderbird",        	    NULL,       NULL,  1 << 5,       0,           -1 },
 	{ NULL,        	    NULL,       "WeeChat",  1 << 3,       0,           -1 },
 	{ "Gimp",           NULL,       NULL,       0,            1,           -1 },
 	{ "Sxiv",           NULL,       NULL,       0,            1,           -1 },
@@ -91,7 +109,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 
 /* commands */
-static const char *dmenucmd[] = { "j4-dmenu-desktop", "--term=kitty", "--dmenu=dmenu -i -l 20" };
+static const char *dmenucmd[] = { "j4-dmenu-desktop", "--term=st", "--dmenu=dmenu -fn 'UbuntuMono Nerd Font:size=11' -i -l 20" };
 // static const char *dmenucmd[] = { "/home/gordon/.local/scripts/vmenu.sh", col_black, col_white, col_black, col_blue, dmenu_fn, NULL };
 // static const char *dmenucmd[] = { "j4-dmenu-desktop --term=\"urxvt\" --dmenu=\"dmenu -i -l 20 -sf \'#cee1ea\' -sb \'#576e6d\' -nf \'#6d6662\' -nb \'#24222a\' -fn \'Terminus:size=11\'\"" };
 static const char *killdwmcmd[] = { "killall", "xinit", NULL };
@@ -110,7 +128,8 @@ static const char *filemancmd[] = { fm, NULL };
 static const char *newsboatcmd[] = { terminal, "-e", "newsboat", NULL };
 static const char *irccmd[] = { terminal, "-t", "WeeChat", "-e", "weechat", NULL };
 // static const char *emailcmd[] = { terminal, "-t", "neomutt", "-e", "neomutt", NULL };
-static const char *emailcmd[] = { "emacsclient", "-nc", "--eval", "\'(mu4e)\'" };
+// static const char *emailcmd[] = { "emacsclient", "-nc", "--eval", "\'(mu4e)\'" };
+static const char *emailcmd[] = { "thunderbird" };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
