@@ -2,38 +2,12 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]     	    = { "UbuntuMono Nerd Font:size=12"};
-static const char dmenu_fn[]        = "UbuntuMono Nerd Font:size=12";
+static const char *fonts[]          = { "CaskaydiaCove Nerd Font:size=10" };
 
-/*
-static const char col_black[]         = "#282c34";
-static const char col_white[]         = "#abb2bf";
-static const char col_lred[]          = "#e06c75";
-static const char col_dred[]          = "#be5046";
-static const char col_green[]         = "#98c379";
-static const char col_lyellow[]       = "#e5c07b";
-static const char col_dyellow[]       = "#d19a66";
-static const char col_blue[]          = "#61afef";
-static const char col_magenta[]       = "#c678dd";
-static const char col_cyan[]          = "#56b6c2";
-static const char col_ggrey[]         = "#4b5263";
-static const char col_cgrey[]         = "#5c6370";
-static const char col_i3lock[]        = "d19a66";
-
-
-static const char *colors[][3]      = {
-	[SchemeNorm]      = { col_white,   col_black, col_ggrey },
-	[SchemeSel]       = { col_magenta, col_black, col_cyan },
-	[SchemeStatus]    = { col_green, col_black, NULL },
-	[SchemeTitleNorm] = { col_white, col_black, NULL },
-	[SchemeTitleSel]  = { col_lyellow, col_black, NULL },
-};
-
-*/
 static const char col_i3lock[]           = "282828";
 static const char col_black[]           = "#282828";
 static const char col_white[]           = "#ebdbb2";
@@ -48,20 +22,9 @@ static const char *colors[][3]      = {
 	[SchemeTitleSel]  = { col_red, col_black, NULL }, /* border is unused */
 };
 
-/*
-static const char col_white[]       = "#cee1ea";
-static const char col_cyan[]        = "#1ebbbd";
-static const char col_dblue[]       = "#576e6d";
-static const char col_lblue[]       = "#697d84";
-static const char col_black[]       = "#24222a";
-static const char col_i3lock[]      = "274966";
-static const char *colors[][3]      = {
-	[SchemeNorm] = { col_lblue, col_black, col_black },
-	[SchemeSel]  = { col_white, col_dblue, col_cyan },
-};*/
-
 /* binary names */
 static const char terminal[] = "st";
+static const char editor[] = "nvim";
 static const char browser[]  = "firefox";
 static const char fm[] 	     = "thunar";
 
@@ -73,20 +36,20 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class            instance    title       tags mask     isfloating   monitor */
-	{ "Navigator",      NULL,       NULL,       1 << 0,       0,           -1 }, // "Navigator" applies to Firefox and Firefox-esr
-	{ "discord",        NULL,       NULL,       1 << 4,       0,           -1 },
-	{ NULL,        	    NULL,       "neomutt",  1 << 5,       0,           -1 },
-	{ "thunderbird",    NULL,       NULL,       1 << 5,       0,           -1 },
-	{ NULL,        	    NULL,       "WeeChat",  1 << 3,       0,           -1 },
-	{ "Gimp",           NULL,       NULL,       0,            1,           -1 },
-	{ "Sxiv",           NULL,       NULL,       0,            1,           -1 },
+	/* class      		instance    title       tags mask     isfloating   monitor */
+	{ "Navigator", 		NULL,       NULL,       1 << 0,       0,           -1 }, // "Navigator" applies to Firefox and Firefox-esr
+	{ "discord",		NULL,       NULL,       1 << 4,       0,           -1 },
+	{ "Gimp",     		NULL,       NULL,       0,            1,           -1 },
+	{ "Firefox",  		NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "thunderbird",    	NULL,       NULL,       1 << 5,       0,           -1 },
+	{ "Sxiv",           	NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -106,10 +69,9 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-
 /* commands */
-static const char *dmenucmd[] = { "j4-dmenu-desktop", "--term=st", "--dmenu=dmenu -fn 'UbuntuMono Nerd Font:size=11' -i -l 20", NULL };
+static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *dmenucmd[] = { "j4-dmenu-desktop", "--term=st", "--dmenu=dmenu -fn 'CaskaydiaCove Nerd Font:size=10' -i -l 20", NULL };
 static const char *killdwmcmd[] = { "killall", "xinit", NULL };
 static const char *termcmd[]  = { terminal, NULL };
 static const char *browsercmd[]  = { browser, NULL };
@@ -120,10 +82,10 @@ static const char *mute[] = { "pulsemixer", "--toggle-mute", NULL };
 static const char *brightupcmd[] = { "light", "-A", "5", NULL };
 static const char *brightdowncmd[] = { "light", "-U", "5", NULL };
 static const char *scrotcmd[] = { "/home/gordon/.local/scripts/screenshot_grab", NULL };
-static const char *emacscmd[] = { "emacsclient", "-nc", NULL };
 static const char *filemancmd[] = { fm, NULL };
 static const char *newsboatcmd[] = { terminal, "-e", "newsboat", NULL };
 static const char *emailcmd[] = { "thunderbird", NULL };
+static const char *editorcmd[] = { "st", "-e", "nvim", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -134,17 +96,13 @@ static Key keys[] = {
 	{ 0,				XF86XK_AudioMute,        spawn,          {.v = mute } },
 	{ 0,				XK_Print,  spawn,          {.v = scrotcmd } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = filemancmd } },
-	// { MODKEY,                       XK_p,      spawn,          {.v = pkgmgrcmd } },
-	// { MODKEY,                       XK_s,      spawn,          {.v = sshcmd } },
-	// { MODKEY,             		XK_c,      spawn,          {.v = irccmd } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = emailcmd } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = newsboatcmd } },
-	{ MODKEY,                       XK_v,      spawn,          {.v = emacscmd } },
+	{ MODKEY,                       XK_v,      spawn,          {.v = editorcmd } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_x,      spawn,          {.v = lockcmd } },
-	// { MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -157,18 +115,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[5]} },
-	// { MODKEY,                       XK_o,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_o,  togglefloating, {0} }, // tenative
+	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = killdwmcmd} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -178,7 +132,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_r,      quit,           {0}}
+	{ MODKEY|ShiftMask,             XK_q,      spawn,           {.v = killdwmcmd} },
+	{ MODKEY|ShiftMask,             XK_r,      quit,           {0} },
 };
 
 /* button definitions */
