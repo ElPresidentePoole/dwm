@@ -7,8 +7,8 @@ static const unsigned int gappx     = 4;        /* gap pixel between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Spleen 8x16:pixelsize=16", "MesloLGSDZ Nerd Font:pixelsize=16" };
-
+// static const char *fonts[]          = { "Spleen 12x24:pixelsize=24", "MesloLGSDZ Nerd Font:pixelsize=24" };
+static const char *fonts[]          = { "UbuntuMono Nerd Font:size=10" };
 static const char col_i3lock[]           = "282828";
 static const char col_black[]           = "#282828";
 static const char col_white[]           = "#ebdbb2";
@@ -27,10 +27,10 @@ static const char *colors[][3]      = {
 static const char terminal[] = "st";
 static const char editor[] = "nvim";
 static const char browser[]  = "firefox";
-static const char fm[] 	     = "thunar";
 
 /* tagging */
 static const char *tags[] = { "www", "term", "vm", "irc", "disc", "mail" };
+// static const char *tags[] = { "www", "term", "vm", "bt", "irc", "disc", "mail" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -73,7 +73,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "j4-dmenu-desktop", "--term=st", "--dmenu=dmenu -fn 'Spleen 8x16:pixelsize=16' -i -l 20", NULL };
+static const char *dmenucmd[] = { "j4-dmenu-desktop", "--term=st", "--dmenu=dmenu -i -l 20", NULL };
 static const char *killdwmcmd[] = { "killall", "xinit", NULL };
 static const char *termcmd[]  = { terminal, NULL };
 static const char *browsercmd[]  = { browser, NULL };
@@ -84,10 +84,11 @@ static const char *mute[] = { "pulsemixer", "--toggle-mute", NULL };
 static const char *brightupcmd[] = { "light", "-A", "5", NULL };
 static const char *brightdowncmd[] = { "light", "-U", "5", NULL };
 static const char *scrotcmd[] = { "/home/gpoole/.local/scripts/screenshot_grab.sh", NULL };
-static const char *filemancmd[] = { fm, NULL };
+static const char *filemancmd[] = { "st", "-e", "vifm", NULL };
 static const char *newsboatcmd[] = { terminal, "-e", "newsboat", NULL };
 static const char *emailcmd[] = { "thunderbird", NULL };
 static const char *editorcmd[] = { "st", "-e", "nvim", NULL };
+static const char *passmenucmd[] = { "/home/gpoole/.local/scripts/passmenu", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -98,7 +99,8 @@ static Key keys[] = {
 	{ 0,				XF86XK_AudioMute,        spawn,          {.v = mute } },
 	{ 0,				XK_Print,  spawn,          {.v = scrotcmd } },
 	{ MODKEY|ShiftMask,             XK_x,      spawn,          {.v = lockcmd } },
-	{ MODKEY,                       XK_n,      spawn,          {.v = filemancmd } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = passmenucmd } },
+	{ MODKEY,                       XK_n,      spawn,          SHCMD("st -e ~/.config/vifm/scripts/vifmrun") },
 	{ MODKEY,                       XK_e,      spawn,          {.v = emailcmd } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = newsboatcmd } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = editorcmd } },
