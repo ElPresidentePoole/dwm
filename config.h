@@ -7,29 +7,17 @@ static const unsigned int gappx     = 4;        /* gap pixel between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-// static const char *fonts[]          = { "Spleen 12x24:pixelsize=24", "MesloLGSDZ Nerd Font:pixelsize=24" };
-static const char *fonts[]          = { "UbuntuMono Nerd Font:size=10" };
-static const char col_i3lock[]           = "282828";
-static const char col_black[]           = "#282828";
-static const char col_white[]           = "#ebdbb2";
-static const char col_green[]        = "#98971a";
-static const char col_red[]        = "#fb4934";
-static const char *colors[][3]      = {
-	/*                    fg            bg       border   */
-	[SchemeNorm]      = { col_white,   col_black, col_black },
-	[SchemeSel]       = { col_green, col_black, col_green },
-	[SchemeStatus]    = { col_white, col_black, NULL }, /* border is unused */
-	[SchemeTitleNorm] = { col_white, col_black, NULL }, /* border is unused */
-	[SchemeTitleSel]  = { col_red, col_black, NULL }, /* border is unused */
-};
+
+/* moved colors and font stuff here */
+#include "themes.h"
 
 /* binary names */
-static const char terminal[] = "st";
+static const char terminal[] = "alacritty";
 static const char editor[] = "nvim";
 static const char browser[]  = "firefox";
 
 /* tagging */
-static const char *tags[] = { "www", "term", "vm", "irc", "disc", "mail" };
+static const char *tags[] = { "main", "www", "term", "disc", "email", "etc" };
 // static const char *tags[] = { "www", "term", "vm", "bt", "irc", "disc", "mail" };
 
 static const Rule rules[] = {
@@ -38,11 +26,11 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      		instance    title       tags mask     isfloating   monitor */
-	{ "Navigator", 		NULL,       NULL,       1 << 0,       0,           -1 }, // "Navigator" applies to Firefox and Firefox-esr
-	{ "discord",		NULL,       NULL,       1 << 4,       0,           -1 },
-	{ "Virt-manager",	NULL,       NULL,       1 << 2,       0,           -1 },
+	{ "firefox", 		NULL,       NULL,       1 << 1,       0,           -1 }, // "Navigator" applies to Firefox and Firefox-esr
+	{ "discord",		NULL,       NULL,       1 << 3,       0,           -1 },
+	{ "Virt-manager",	NULL,       NULL,       0,            0,           -1 },
 	{ "Gimp",     		NULL,       NULL,       0,            1,           -1 },
-	{ "thunderbird",    	NULL,       NULL,       1 << 5,       0,           -1 },
+	{ "Thunderbird",    	NULL,       NULL,       1 << 4,       0,           -1 },
 	{ "Sxiv",           	NULL,       NULL,       0,            1,           -1 },
 	{ "mpv",           	NULL,       NULL,       0,            1,           -1 },
 };
